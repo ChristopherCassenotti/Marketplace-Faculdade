@@ -22,9 +22,7 @@ async function conectarComRetry(tentativas = 10, intervaloMs = 3000) {
       console.log("Conectado ao banco com sucesso!");
       return;
     } catch (err) {
-      console.log(
-        `Tentativa ${i}/${tentativas} falhou, tentando de novo em ${intervaloMs}ms...`,
-      );
+      console.log(`Tentativa ${i}/${tentativas} falhou: ${err.message}`);
       await new Promise((r) => setTimeout(r, intervaloMs));
     }
   }

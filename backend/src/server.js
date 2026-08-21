@@ -7,7 +7,6 @@ app.use(express.json());
 app.use("/usuarios", usuarioRoutes);
 
 conectarComRetry()
-  .then(() => sequelize.sync())
   .then(() => {
     app.listen(3000, () => {
       console.log("Server Running!");
