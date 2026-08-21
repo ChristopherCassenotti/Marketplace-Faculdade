@@ -1,6 +1,6 @@
 # Marketplace-Faculdade
 
-## 1. Sistema e integrantes
+## Sistema e integrantes
 
 **Nome do sistema:** Marketplace-Faculdade
 
@@ -11,7 +11,7 @@
 
 ---
 
-## 2. Sobre o projeto
+## Sobre o projeto
 
 O **Marketplace-Faculdade** é um sistema desenvolvido como projeto acadêmico para a disciplina de desenvolvimento de software.
 
@@ -32,109 +32,90 @@ A aplicação também utiliza **Docker e Docker Compose** para facilitar a confi
 
 ---
 
-## 3. Como executar o projeto
+## Funcionalidades implementadas
 
-### Pré-requisitos
+- CRUD de Usuários (consulta, inserção, alteração e exclusão via Sequelize)
 
-É necessário ter instalado:
+## Pré-requisitos
 
-- Docker
-- Docker Compose
+- [Docker](https://docs.docker.com/get-docker/) e Docker Compose instalados
 
-Não é necessário instalar o Node.js ou PostgreSQL diretamente na máquina, pois essas dependências são executadas através dos containers Docker.
+Não é necessário instalar Node.js ou PostgreSQL na máquina — tudo roda dentro dos containers.
 
-### 3.1 Clonar o repositório
+## Como rodar o projeto
 
-```bash
-git clone <URL_DO_REPOSITORIO>
-cd Marketplace-Faculdade
-```
-
-### 3.2 Configurar as variáveis de ambiente
-
-O arquivo `.env` **não é versionado no Git**, pois pode conter informações sensíveis e configurações específicas do ambiente.
-
-Utilize o arquivo `.env.example` como modelo:
+1. Clone o repositório:
 
 ```bash
-cp .env.example .env
+   git clone <link-do-repositorio>
+   cd Marketplace-Faculdade
 ```
 
-Depois, abra o `.env` e preencha ou ajuste as variáveis necessárias para a execução do projeto.
-
-Exemplo:
-
-```env
-DB_HOST=db
-DB_PORT=5432
-DB_NAME=marketplace
-DB_USER=postgres
-DB_PASSWORD=postgres
-```
-
-> Os valores utilizados no `.env` devem estar de acordo com as configurações definidas no `docker-compose.yml` e na configuração do Sequelize.
-
-### 3.3 Executar com Docker Compose
-
-Na raiz do projeto, execute:
+2. Copie o arquivo de variáveis de ambiente de exemplo e preencha:
 
 ```bash
-docker compose up --build
+   cp backend/.env.example backend/.env
 ```
 
-O Docker irá:
-
-1. Criar a imagem da aplicação;
-2. Instalar as dependências do Node.js;
-3. Criar o container da aplicação;
-4. Criar o container do PostgreSQL;
-5. Criar a rede entre os containers;
-6. Criar o volume para persistência dos dados do banco.
-
-Após a inicialização, os serviços estarão disponíveis conforme as portas configuradas no `docker-compose.yml`.
-
-### 3.4 Parar os containers
-
-Para parar a execução:
+3. Suba os containers:
 
 ```bash
-docker compose down
+   docker compose up --build
 ```
 
-Para parar os containers e também remover os volumes do projeto:
+4. Em outro terminal, rode as migrations pra criar as tabelas:
 
 ```bash
-docker compose down -v
+   docker compose exec app npx sequelize-cli db:migrate
 ```
 
-> **Atenção:** utilizar `docker compose down -v` remove os volumes associados ao projeto e, consequentemente, os dados armazenados no banco PostgreSQL.
+5. (Opcional) Popule o banco com dados de teste:
 
----
-
-## Estrutura básica do projeto
-
-```text
-Marketplace-Faculdade/
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── controllers/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   └── server.js
-│   ├── Dockerfile
-│   ├── package.json
-│   └── package-lock.json
-├── .env.example
-├── .gitignore
-├── docker-compose.yml
-└── README.md
+```bash
+   docker compose exec app npx sequelize-cli db:seed:all
 ```
 
-## Observações
+A API estará disponível em `http://localhost:3000`.
 
-O arquivo `.env` não deve ser enviado para o repositório. Cada integrante deve criar seu próprio arquivo `.env` localmente utilizando o `.env.example` como referência.
+## Endpoints da API
 
-O projeto utiliza Docker Compose para padronizar o ambiente de execução e facilitar a configuração do backend e do banco de dados PostgreSQL.
+### Usuários
 
----
+| Método | Rota          | Descrição                     |
+| ------ | ------------- | ----------------------------- |
+| GET    | /usuarios     | Lista todos os usuários       |
+| GET    | /usuarios/:id | Busca um usuário pelo ID      |
+| POST   | /usuarios     | Cria um novo usuário          |
+| PUT    | /usuarios/:id | Atualiza um usuário existente |
+| DELETE | /usuarios/:id | Remove um usuário             |
+
+**Exemplo de corpo para POST/PUT:**
+
+```json
+{
+  "nome": "João Santos",
+  "email": "joao@teste.com",
+  "cpf": "11111111111",
+  "telefone": "42999990000",
+  "senha_hash": "senha_fake_para_teste"
+}
+```
+
+## Estrutura do projeto
+
+backend/
+├── src/
+│ ├── config/ # Configuração de conexão com o banco (Sequelize)
+│ ├── models/ # Models do Sequelize
+│ ├── controllers/ # Lógica de negócio das rotas
+│ ├── routes/ # Definição das rotas da API
+│ ├── migrations/ # Migrations do Sequelize
+│ ├── seeders/ # Dados de teste (seeds)
+│ └── server.js # Ponto de entrada da aplicação
+├── Dockerfile
+└── .env.example
+docker-compose.yml
+
+## Observações sobre o banco de dados
+
+Os dados armazenados no banco (via volume Docker) são locais a cada máquina onde o projeto é executado. A estrutura das tabelas é garantida igual para todos através das migrations; para popular o banco com dados de exemplo, utilize os seeders.
