@@ -3,6 +3,7 @@ import Usuario from "./Usuario.js";
 import Categoria from "./Categoria.js";
 import Anuncio from "./Anuncio.js";
 import Favorito from "./Favorito.js";
+import Empresa from "./Empresa.js";
 
 // Um usuário pode ter vários anúncios
 Usuario.hasMany(Anuncio, { foreignKey: "usuario_id" });
@@ -20,5 +21,17 @@ Usuario.hasMany(Favorito, { foreignKey: "usuario_id" });
 Anuncio.hasMany(Favorito, { foreignKey: "anuncio_id" });
 Favorito.belongsTo(Usuario, { foreignKey: "usuario_id" });
 Favorito.belongsTo(Anuncio, { foreignKey: "anuncio_id" });
+
+//Empresa
+Empresa.hasMany(Anuncio, {foreignKey: "empresa_id"});
+Empresa.hasMany(Categoria, {foreignKey: "empresa_id"});
+Empresa.hasMany(Favorito, {foreignKey: "empresa_id"});
+
+Categoria.belongsTo(Empresa, {foreignKey: "empresa_id"});
+
+Favorito.belongsTo(Empresa, {foreignKey: "empresa_id"});
+
+Anuncio.belongsTo(Empresa, {foreignKey: "empresa_id"});
+
 
 export { sequelize, Usuario, Categoria, Anuncio, Favorito };
