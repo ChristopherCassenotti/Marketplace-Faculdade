@@ -4,15 +4,18 @@ import usuarioRoutes from "./routes/usuarioRoutes.js";
 import categoriaRoutes from "./routes/categoriaRoutes.js";
 import anuncioRoutes from "./routes/anuncioRoutes.js";
 import favoritoRoutes from "./routes/favoritoRoutes.js";
-import empresaRoutes from './routes/empresaRoutes.js';
+import empresaRoutes from "./routes/empresaRoutes.js";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger.js";
 
 const app = express();
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/usuarios", usuarioRoutes);
 app.use("/categorias", categoriaRoutes);
 app.use("/anuncios", anuncioRoutes);
 app.use("/favoritos", favoritoRoutes);
-app.use('/empresa', empresaRoutes);
+app.use("/empresa", empresaRoutes);
 
 conectarComRetry()
   .then(() => {
