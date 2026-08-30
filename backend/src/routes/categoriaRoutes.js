@@ -1,4 +1,3 @@
-// categoriaRoutes.js
 import { Router } from "express";
 import {
   listarCategorias,
@@ -7,6 +6,7 @@ import {
   atualizarCategoria,
   deletarCategoria,
 } from "../controllers/categoriaController.js";
+import { autenticarJWT } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
@@ -105,7 +105,7 @@ router.get("/:id", buscarCategoria);
  *       400:
  *         description: Dados inválidos
  */
-router.post("/", criarCategoria);
+router.post("/", autenticarJWT, criarCategoria);
 
 /**
  * @swagger
@@ -131,7 +131,7 @@ router.post("/", criarCategoria);
  *       404:
  *         description: Categoria não encontrada
  */
-router.put("/:id", atualizarCategoria);
+router.put("/:id", autenticarJWT, atualizarCategoria);
 
 /**
  * @swagger
@@ -151,6 +151,6 @@ router.put("/:id", atualizarCategoria);
  *       404:
  *         description: Categoria não encontrada
  */
-router.delete("/:id", deletarCategoria);
+router.delete("/:id", autenticarJWT, deletarCategoria);
 
 export default router;

@@ -5,9 +5,9 @@ const options = {
     openapi: "3.0.0",
     info: {
       title: "Marketplace Faculdade API",
-      version: "1.0.0",
+      version: "1.1.0",
       description:
-        "API REST do projeto integrador — CRUD de Usuários, Categorias, Anúncios e Favoritos usando Sequelize.",
+        "API REST com usuários, autenticação JWT, categorias, tags, anúncios, favoritos e caronas.",
     },
     servers: [
       {
@@ -15,8 +15,17 @@ const options = {
         description: "Ambiente local (Docker)",
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
   },
-  apis: ["./src/routes/*.js"], // onde ele vai procurar os comentários @swagger
+  apis: ["./src/routes/*.js"],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

@@ -1,13 +1,10 @@
 import { Router } from "express";
-import {
-  listarUsuarios,
-  buscarUsuario,
-  criarUsuario,
-  atualizarUsuario,
-  deletarUsuario,
-} from "../controllers/usuarioController.js";
+import { listarUsuarios, buscarUsuario, criarUsuario, atualizarUsuario, deletarUsuario,} from "../controllers/usuarioController.js";
+import { autenticarJWT } from "../middlewares/authMiddleware.js";
 
 const router = Router();
+
+router.use(autenticarJWT);
 
 /**
  * @swagger

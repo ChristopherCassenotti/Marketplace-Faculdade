@@ -1,4 +1,3 @@
-// favoritoRoutes.js
 import { Router } from "express";
 import {
   listarFavoritos,
@@ -7,8 +6,11 @@ import {
   atualizarFavorito,
   deletarFavorito,
 } from "../controllers/favoritoController.js";
+import { autenticarJWT } from "../middlewares/authMiddleware.js";
 
 const router = Router();
+
+router.use(autenticarJWT);
 
 /**
  * @swagger

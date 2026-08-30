@@ -1,17 +1,21 @@
 "use strict";
 
+const bcrypt = require("bcrypt");
+
 const diasAtras = (dias) =>
   new Date(Date.now() - dias * 24 * 60 * 60 * 1000);
 
 module.exports = {
   async up(queryInterface) {
+    const senha_hash = await bcrypt.hash("123456", 10);
+
     await queryInterface.bulkInsert("usuarios", [
       {
         nome: "João Silva",
         email: "joao@teste.com",
         cpf: "11111111111",
         telefone: "42999990001",
-        senha_hash: "senha_hash_joao",
+        senha_hash,
         status: "ativo",
         data_cadastro: diasAtras(60),
       },
@@ -20,7 +24,7 @@ module.exports = {
         email: "maria@teste.com",
         cpf: "22222222222",
         telefone: "42999990002",
-        senha_hash: "senha_hash_maria",
+        senha_hash,
         status: "ativo",
         data_cadastro: diasAtras(45),
       },
@@ -29,7 +33,7 @@ module.exports = {
         email: "carlos@teste.com",
         cpf: "33333333333",
         telefone: "42999990003",
-        senha_hash: "senha_hash_carlos",
+        senha_hash,
         status: "ativo",
         data_cadastro: diasAtras(30),
       },
@@ -38,7 +42,7 @@ module.exports = {
         email: "ana@teste.com",
         cpf: "44444444444",
         telefone: "42999990004",
-        senha_hash: "senha_hash_ana",
+        senha_hash,
         status: "ativo",
         data_cadastro: diasAtras(20),
       },
@@ -47,7 +51,7 @@ module.exports = {
         email: "pedro@teste.com",
         cpf: "55555555555",
         telefone: "42999990005",
-        senha_hash: "senha_hash_pedro",
+        senha_hash,
         status: "inativo",
         data_cadastro: diasAtras(10),
       },
@@ -56,7 +60,7 @@ module.exports = {
         email: "juliana@teste.com",
         cpf: "66666666666",
         telefone: "42999990006",
-        senha_hash: "senha_hash_juliana",
+        senha_hash,
         status: "ativo",
         data_cadastro: diasAtras(5),
       },

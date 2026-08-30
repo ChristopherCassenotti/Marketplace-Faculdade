@@ -1,11 +1,6 @@
 import { Router } from "express";
-import {
-  listarAnuncios,
-  buscarAnuncio,
-  criarAnuncio,
-  atualizarAnuncio,
-  deletarAnuncio,
-} from "../controllers/anuncioController.js";
+import { listarAnuncios, buscarAnuncio, criarAnuncio, atualizarAnuncio, deletarAnuncio,} from "../controllers/anuncioController.js";
+import { autenticarJWT } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
@@ -116,7 +111,7 @@ router.get("/:id", buscarAnuncio);
  *       400:
  *         description: Dados inválidos
  */
-router.post("/", criarAnuncio);
+router.post("/", autenticarJWT, criarAnuncio);
 
 /**
  * @swagger
@@ -142,7 +137,7 @@ router.post("/", criarAnuncio);
  *       404:
  *         description: Anúncio não encontrado
  */
-router.put("/:id", atualizarAnuncio);
+router.put("/:id", autenticarJWT, atualizarAnuncio);
 
 /**
  * @swagger
@@ -162,6 +157,6 @@ router.put("/:id", atualizarAnuncio);
  *       404:
  *         description: Anúncio não encontrado
  */
-router.delete("/:id", deletarAnuncio);
+router.delete("/:id", autenticarJWT, deletarAnuncio);
 
 export default router;
