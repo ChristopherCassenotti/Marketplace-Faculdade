@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
   },
 );
 
-async function conectarComRetry(tentativas = 3, intervaloMs = 3000) {
+async function conectarComRetry(tentativas = 10, intervaloMs = 3000) {
   for (let i = 1; i <= tentativas; i++) {
     try {
       await sequelize.authenticate();
