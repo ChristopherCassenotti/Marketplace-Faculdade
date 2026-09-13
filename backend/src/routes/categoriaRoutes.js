@@ -86,6 +86,8 @@ router.get("/:id", buscarCategoria);
  *   post:
  *     summary: Cria uma nova categoria
  *     tags: [Categorias]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -113,6 +115,8 @@ router.post("/", autenticarJWT, criarCategoria);
  *   put:
  *     summary: Atualiza uma categoria existente
  *     tags: [Categorias]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -139,6 +143,8 @@ router.put("/:id", autenticarJWT, atualizarCategoria);
  *   delete:
  *     summary: Remove uma categoria
  *     tags: [Categorias]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

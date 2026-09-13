@@ -88,6 +88,8 @@ router.get("/:id", buscarAnuncio);
  *   post:
  *     summary: Cria um novo anúncio
  *     tags: [Anuncios]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -119,6 +121,8 @@ router.post("/", autenticarJWT, criarAnuncio);
  *   put:
  *     summary: Atualiza um anúncio existente
  *     tags: [Anuncios]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -145,6 +149,8 @@ router.put("/:id", autenticarJWT, atualizarAnuncio);
  *   delete:
  *     summary: Remove um anúncio
  *     tags: [Anuncios]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

@@ -31,5 +31,19 @@ services:
         condition: service_healthy
     command: sh -c "npx sequelize-cli db:migrate && npm run dev"
 
+  frontend:
+    build: ./frontend
+    container_name: marketplace_frontend
+    restart: always
+    environment:
+      - API_PROXY_TARGET=http://app:3000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - app
+
 volumes:
   db_data:

@@ -43,6 +43,8 @@ router.use(autenticarJWT);
  *   get:
  *     summary: Lista todos os favoritos (com usuário e anúncio)
  *     tags: [Favoritos]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de favoritos
@@ -61,6 +63,8 @@ router.get("/", listarFavoritos);
  *   get:
  *     summary: Busca um favorito pelo ID
  *     tags: [Favoritos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -85,6 +89,8 @@ router.get("/:id", buscarFavorito);
  *   post:
  *     summary: Favorita um anúncio
  *     tags: [Favoritos]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -110,6 +116,8 @@ router.post("/", criarFavorito);
  *   put:
  *     summary: Atualiza um favorito existente
  *     tags: [Favoritos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -136,6 +144,8 @@ router.put("/:id", atualizarFavorito);
  *   delete:
  *     summary: Remove um favorito
  *     tags: [Favoritos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

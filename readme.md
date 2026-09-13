@@ -30,6 +30,9 @@ A aplicação também utiliza **Docker e Docker Compose** para facilitar a confi
 - PostgreSQL
 - Docker
 - Docker Compose
+- React
+- Vite
+- Tailwind CSS
 
 ---
 
@@ -76,7 +79,9 @@ Não é necessário instalar Node.js ou PostgreSQL na máquina — tudo roda den
    docker compose exec app npx sequelize-cli db:seed:all
 ```
 
-A API estará disponível em `http://localhost:3000`.
+A API estará disponível em `http://localhost:3000` e o frontend em `http://localhost:5173`.
+
+O `docker compose up` já sobe os três serviços juntos (`db`, `app` e `frontend`), com hot-reload ativo — alterações em `backend/` ou `frontend/` refletem direto nos containers. Para rodar só o frontend fora do Docker (ex.: `npm run dev` local), veja [frontend/README.md](frontend/README.md).
 
 ## Endpoints da API
 
@@ -115,6 +120,14 @@ backend/
 │ └── server.js # Ponto de entrada da aplicação
 ├── Dockerfile
 └── .env.example
+frontend/
+├── src/
+│ ├── api/ # Client HTTP (axios) e chamadas à API
+│ ├── components/ # Componentes reutilizáveis (Navbar, FormField, etc.)
+│ ├── context/ # Contexto de autenticação (JWT)
+│ ├── pages/ # Telas: Login, Registro, Anúncios, Criar Anúncio
+│ └── App.jsx # Rotas da aplicação
+└── Dockerfile
 docker-compose.yml
 
 ## Observações sobre o banco de dados

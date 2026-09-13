@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Paleta oficial NOMA */
+  --color-sage: #8ebfa8;
+  --color-cream: #f5f1e8;
+  --color-blue-gray: #a9bed1;
+  --color-white: #ffffff;
+  --color-charcoal: #343a3d;
+
+  /* Tokens semânticos usados pelos componentes */
+  --color-bg: var(--color-cream);
+  --color-surface: var(--color-white);
+  --color-line: #e3ddcd;
+  --color-text: var(--color-charcoal);
+  --color-muted: #6d7478;
+  --color-accent: var(--color-sage);
+  --color-accent-2: var(--color-blue-gray);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+}
+
+/* Esconde as setinhas nativas do input number nos campos de preço */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}

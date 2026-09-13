@@ -22,7 +22,7 @@ app.use("/tags", tagRoutes);
 app.use("/anuncios", anuncioRoutes);
 app.use("/caronas", caronaRoutes);
 app.use("/favoritos", favoritoRoutes);
-app.use("/empresa", empresaRoutes);
+app.use("/empresas", empresaRoutes);
 
 conectarComRetry()
   .then(() => {

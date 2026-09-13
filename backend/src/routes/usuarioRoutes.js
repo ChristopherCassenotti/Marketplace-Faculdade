@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { listarUsuarios, buscarUsuario, criarUsuario, atualizarUsuario, deletarUsuario,} from "../controllers/usuarioController.js";
+import {
+  listarUsuarios,
+  buscarUsuario,
+  criarUsuario,
+  atualizarUsuario,
+  deletarUsuario,
+} from "../controllers/usuarioController.js";
 import { autenticarJWT } from "../middlewares/authMiddleware.js";
 
 const router = Router();
@@ -43,6 +49,8 @@ router.use(autenticarJWT);
  *   get:
  *     summary: Lista todos os usuários
  *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de usuários
@@ -61,6 +69,8 @@ router.get("/", listarUsuarios);
  *   get:
  *     summary: Busca um usuário pelo ID
  *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -85,6 +95,8 @@ router.get("/:id", buscarUsuario);
  *   post:
  *     summary: Cria um novo usuário
  *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -116,6 +128,8 @@ router.post("/", criarUsuario);
  *   put:
  *     summary: Atualiza um usuário existente
  *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -142,6 +156,8 @@ router.put("/:id", atualizarUsuario);
  *   delete:
  *     summary: Remove um usuário
  *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
