@@ -123,6 +123,13 @@ export default function Navbar({ busca, onBuscaChange }) {
                 >
                   Cadastrar anúncio
                 </Link>
+                <Link
+                  to="/relatorios/categorias"
+                  onClick={() => setMenuConta(false)}
+                  className="block rounded-md px-2.5 py-1.5 text-sm text-charcoal hover:bg-cream"
+                >
+                  Resumo por categoria
+                </Link>
                 <button
                   type="button"
                   onClick={() => {
