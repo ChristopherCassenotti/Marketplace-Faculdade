@@ -8,7 +8,6 @@
 
 - João Vitor dos Santos
 - Christopher Cassenoti
-- Guilherme Adler Budniak
 
 ---
 
