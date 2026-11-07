@@ -8,6 +8,7 @@ import empresaRoutes from "./routes/empresaRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import tagRoutes from "./routes/tagRoutes.js";
 import caronaRoutes from "./routes/caronaRoutes.js";
+import relatorioRoutes from "./routes/relatorioRoutes.js";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.js";
 
@@ -23,6 +24,7 @@ app.use("/anuncios", anuncioRoutes);
 app.use("/caronas", caronaRoutes);
 app.use("/favoritos", favoritoRoutes);
 app.use("/empresas", empresaRoutes);
+app.use("/relatorios", relatorioRoutes);
 
 conectarComRetry()
   .then(() => {

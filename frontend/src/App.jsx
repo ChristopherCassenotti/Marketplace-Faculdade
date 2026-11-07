@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Registro from "./pages/Registro";
 import Anuncios from "./pages/Anuncios";
 import CriarAnuncio from "./pages/CriarAnuncio";
+import ResumoCategorias from "./pages/ResumoCategorias";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/anuncios" element={<Anuncios />} />
             <Route path="/anuncios/novo" element={<CriarAnuncio />} />
+            <Route path="/relatorios/categorias" element={<ResumoCategorias />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/anuncios" replace />} />
