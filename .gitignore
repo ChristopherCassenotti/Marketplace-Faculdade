@@ -1,3 +1,32 @@
+
+# Variáveis de ambiente
 .env
+.env.*
+!.env.example
+
+# Dependências
 node_modules/
-./backend/node_modules/
+
+# Arquivos de logs
+*.log
+npm-debug.log*
+
+# Build
+dist/
+build/
+coverage/
+
+# Imagens enviadas pelos usuários
+uploads/
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
