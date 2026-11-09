@@ -17,10 +17,7 @@ export default function App() {
     <AuthProvider>
       <FavoritosProvider>
         <Routes>
-          <Route
-            path="/"
-            element={<Navigate to="/anuncios" replace />}
-          />
+          <Route path="/" element={<Navigate to="/anuncios" replace />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
@@ -28,15 +25,9 @@ export default function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/anuncios" element={<Anuncios />} />
 
-            <Route
-              path="/anuncios/novo"
-              element={<CriarAnuncio />}
-            />
+            <Route path="/anuncios/novo" element={<CriarAnuncio />} />
 
-            <Route
-              path="/empresas/:id"
-              element={<EmpresaVitrine />}
-            />
+            <Route path="/empresas/:id" element={<EmpresaVitrine />} />
 
             <Route
               path="/relatorios/categorias"
@@ -44,15 +35,11 @@ export default function App() {
             />
           </Route>
 
-          <Route
-            path="*"
-            element={<Navigate to="/anuncios" replace />}
-          />
-
           <Route path="/anuncios/:id" element={<AnuncioDetalhes />} />
 
           <Route path="/favoritos" element={<Favoritos />} />
-          
+
+          <Route path="*" element={<Navigate to="/anuncios" replace />} />
         </Routes>
       </FavoritosProvider>
     </AuthProvider>
