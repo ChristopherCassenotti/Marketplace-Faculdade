@@ -13,7 +13,7 @@ export default function EmpresaCard({ empresa, index = 0 }) {
   return (
     <Link
       to={`/empresas/${empresa.id}`}
-      className="group flex min-w-[220px] items-center gap-3 rounded-lg border border-line bg-white p-3 transition hover:border-sage hover:shadow-md"
+      className="group flex w-60 shrink-0 items-center gap-3 rounded-lg border border-line bg-white p-3 transition hover:border-sage hover:shadow-md"
     >
       <span
         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-base font-bold ${cor}`}

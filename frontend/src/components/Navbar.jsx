@@ -40,22 +40,22 @@ export default function Navbar({ busca, onBuscaChange }) {
 
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-3 sm:gap-x-4 sm:px-6 md:flex-nowrap">
         <Link to="/anuncios" className="flex shrink-0 items-center gap-2">
           <Logo size="sm" />
         </Link>
 
-        <div ref={categoriasRef} className="relative hidden shrink-0 md:block">
+        <div ref={categoriasRef} className="relative shrink-0">
           <button
             type="button"
             onClick={() => setMenuCategorias((v) => !v)}
             className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-charcoal transition hover:bg-cream"
           >
             <MenuIcon />
-            Categorias
+            <span className="hidden md:inline">Categorias</span>
           </button>
           {menuCategorias && (
-            <div className="absolute left-0 mt-1 w-56 rounded-lg border border-line bg-white p-1.5 shadow-xl">
+            <div className="absolute left-0 z-30 mt-1 w-56 max-w-[calc(100vw-2rem)] rounded-lg border border-line bg-white p-1.5 shadow-xl">
               {categorias.map((cat) => (
                 <Link
                   key={cat.id}
@@ -70,7 +70,7 @@ export default function Navbar({ busca, onBuscaChange }) {
           )}
         </div>
 
-        <div className="relative flex-1">
+        <div className="relative order-last w-full basis-full md:order-none md:basis-auto md:flex-1">
           <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted">
             <SearchIcon />
           </span>
@@ -83,7 +83,7 @@ export default function Navbar({ busca, onBuscaChange }) {
           />
         </div>
 
-        <div className="flex shrink-0 items-center gap-4">
+        <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-3 md:ml-0 md:gap-4">
 
       <Link
         to="/favoritos"
@@ -124,7 +124,7 @@ export default function Navbar({ busca, onBuscaChange }) {
               <ChevronDownIcon />
             </button>
             {menuConta && (
-              <div className="absolute right-0 mt-1 w-44 rounded-lg border border-line bg-white p-1.5 shadow-xl">
+              <div className="absolute right-0 z-30 mt-1 w-44 rounded-lg border border-line bg-white p-1.5 shadow-xl">
                 <Link
                   to="/anuncios/novo"
                   onClick={() => setMenuConta(false)}

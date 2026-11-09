@@ -71,7 +71,7 @@ export default function Anuncios() {
     <div className="min-h-screen bg-cream">
       <Navbar busca={busca} onBuscaChange={setBusca} />
 
-      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[240px_1fr]">
+      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[240px_minmax(0,1fr)]">
         <aside className="h-fit rounded-lg border border-line bg-white p-4 lg:sticky lg:top-20">
           <h2 className="mb-4 text-sm font-bold text-charcoal">Filtros</h2>
 
@@ -149,7 +149,7 @@ export default function Anuncios() {
             <>
               {empresas.length > 0 && (
                 <section className="mb-8">
-                  <h2 className="mb-3 text-base font-bold text-charcoal">Empresas em destaque</h2>
+                  <h2 className="mb-3 text-base font-bold text-charcoal">Minhas empresas</h2>
                   <div className="-mx-1 flex gap-3 overflow-x-auto px-1 pb-2">
                     {empresas.slice(0, 8).map((emp, i) => (
                       <EmpresaCard key={emp.id} empresa={emp} index={i} />
@@ -165,7 +165,7 @@ export default function Anuncios() {
                     Nenhum anúncio encontrado com esses filtros.
                   </p>
                 ) : (
-                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 xl:grid-cols-4">
                     {anunciosFiltrados.map((anuncio) => (
                       <AnuncioCard key={anuncio.id} anuncio={anuncio} />
                     ))}

@@ -91,7 +91,7 @@ export default function AnuncioDetalhes() {
         )}
 
         {!carregando && erro && (
-          <div className="rounded-xl border border-red-200 bg-white p-10 text-center">
+          <div className="rounded-xl border border-red-200 bg-white p-6 text-center sm:p-10">
             <h2 className="text-xl font-bold text-charcoal">
               Não foi possível abrir o anúncio
             </h2>

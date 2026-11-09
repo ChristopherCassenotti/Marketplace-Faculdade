@@ -106,7 +106,7 @@ export default function EmpresaVitrine() {
 
         {/* Erro */}
         {!carregando && erro && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-center sm:p-8">
             <h2 className="text-lg font-bold text-red-700">
               Não foi possível carregar a vitrine
             </h2>
@@ -195,7 +195,7 @@ export default function EmpresaVitrine() {
                         href={`https://wa.me/${numeroWhatsApp}?text=${mensagemWhatsApp}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center rounded-xl bg-sage px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:opacity-90"
+                        className="inline-flex flex-1 items-center justify-center rounded-xl bg-sage px-5 py-3 text-sm font-bold text-white shadow-sm sm:flex-none transition hover:opacity-90"
                       >
                         Falar pelo WhatsApp ↗
                       </a>
@@ -204,7 +204,7 @@ export default function EmpresaVitrine() {
                     {empresa.email && (
                       <a
                         href={`mailto:${empresa.email}`}
-                        className="inline-flex items-center justify-center rounded-xl border border-line bg-white px-5 py-3 text-sm font-semibold text-charcoal transition hover:bg-cream"
+                        className="inline-flex flex-1 items-center justify-center rounded-xl border border-line bg-white px-5 sm:flex-none py-3 text-sm font-semibold text-charcoal transition hover:bg-cream"
                       >
                         Enviar e-mail
                       </a>

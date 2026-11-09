@@ -88,6 +88,7 @@ export const listarEmpresas = async (req, res) =>{
             attributes:{
                 exclude: ['senha_hash'],
             },
+            where: { usuario_responsavel_id: req.usuario.id },
             order: [['id', 'DESC']],
         });
 
@@ -113,6 +114,12 @@ export const buscarEmpresaPorId = async (req, res) => {
         if(!empresa){
             return res.status(404).json({
                 message: 'Empresa não encontrada.'
+            });
+        }
+
+        if (empresa.usuario_responsavel_id !== req.usuario.id) {
+            return res.status(403).json({
+                message: 'Você não tem permissão para acessar esta empresa.'
             });
         }
 

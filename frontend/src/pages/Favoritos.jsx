@@ -98,7 +98,7 @@ export default function Favoritos() {
 
         {/* Erro */}
         {!carregandoPagina && erro && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-center sm:p-8">
             <h2 className="font-bold text-red-700">
               Não foi possível carregar seus favoritos
             </h2>

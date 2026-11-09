@@ -60,7 +60,7 @@ export default function CadastrarEmpresa() {
 
         <form
           onSubmit={aoEnviar}
-          className="space-y-4 rounded-2xl border border-line bg-white p-8 shadow-xl shadow-charcoal/5"
+          className="space-y-4 rounded-2xl border border-line bg-white p-5 shadow-xl sm:p-8 shadow-charcoal/5"
         >
           <FormField
             label="Nome da empresa"

@@ -45,8 +45,10 @@ const router = express.Router();
  * @swagger
  * /empresas:
  *   get:
- *     summary: Lista todas as empresas
+ *     summary: Lista as empresas do usuário logado
  *     tags: [Empresas]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de empresas
@@ -57,14 +59,16 @@ const router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Empresa'
  */
-router.get("/", listarEmpresas);
+router.get("/", autenticarJWT, listarEmpresas);
 
 /**
  * @swagger
  * /empresas/{id}:
  *   get:
- *     summary: Busca uma empresa pelo ID
+ *     summary: Busca uma empresa pelo ID (somente o responsável)
  *     tags: [Empresas]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -81,7 +85,7 @@ router.get("/", listarEmpresas);
  *       404:
  *         description: Empresa não encontrada
  */
-router.get("/:id", buscarEmpresaPorId);
+router.get("/:id", autenticarJWT, buscarEmpresaPorId);
 
 /**
  * @swagger
