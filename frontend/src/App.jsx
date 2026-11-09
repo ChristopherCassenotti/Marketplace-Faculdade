@@ -10,6 +10,7 @@ import Anuncios from "./pages/Anuncios";
 import CriarAnuncio from "./pages/CriarAnuncio";
 import ResumoCategorias from "./pages/ResumoCategorias";
 import EmpresaVitrine from "./pages/EmpresaVitrine";
+import AnuncioDetalhes from "./pages/AnuncioDetalhes";
 
 export default function App() {
   return (
@@ -47,6 +48,8 @@ export default function App() {
             path="*"
             element={<Navigate to="/anuncios" replace />}
           />
+          
+          <Route path="/anuncios/:id" element={<AnuncioDetalhes />} />
         </Routes>
       </FavoritosProvider>
     </AuthProvider>

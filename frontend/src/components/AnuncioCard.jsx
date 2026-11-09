@@ -1,5 +1,6 @@
 import { HeartIcon } from "./FormField";
 import { useFavoritos } from "../context/FavoritosContext";
+import { Link } from "react-router-dom";
 
 const formatarPreco = new Intl.NumberFormat("pt-BR", {
   style: "currency",
@@ -13,7 +14,13 @@ export default function AnuncioCard({ anuncio }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-lg border border-line bg-white transition hover:shadow-md hover:shadow-charcoal/5">
       <div className="relative flex aspect-square items-center justify-center bg-cream text-muted/70">
-        <PlaceholderIcon />
+    <Link
+      to={`/anuncios/${anuncio.id}`}
+      aria-label={`Ver detalhes de ${anuncio.titulo}`}
+      className="absolute inset-0 flex items-center justify-center"
+    >
+      <PlaceholderIcon />
+    </Link>
         <button
           type="button"
           onClick={(e) => {
@@ -28,8 +35,11 @@ export default function AnuncioCard({ anuncio }) {
           <HeartIcon filled={favoritado} />
         </button>
       </div>
-      <div className="flex flex-1 flex-col gap-1 p-3">
-        <h3 className="line-clamp-2 text-sm font-medium text-charcoal">
+      <Link
+        to={`/anuncios/${anuncio.id}`}
+        className="flex flex-1 flex-col gap-1 p-3 hover:bg-cream/60"
+      >
+          <h3 className="line-clamp-2 text-sm font-medium text-charcoal">
           {anuncio.titulo}
         </h3>
         {anuncio.Usuario?.nome && (
@@ -38,7 +48,7 @@ export default function AnuncioCard({ anuncio }) {
         <p className="mt-1 text-sm font-semibold text-charcoal">
           {formatarPreco.format(Number(anuncio.preco) || 0)}
         </p>
-      </div>
+      </Link>
     </article>
   );
 }
