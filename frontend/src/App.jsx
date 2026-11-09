@@ -1,4 +1,3 @@
-
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { FavoritosProvider } from "./context/FavoritosContext";
@@ -11,6 +10,7 @@ import CriarAnuncio from "./pages/CriarAnuncio";
 import ResumoCategorias from "./pages/ResumoCategorias";
 import EmpresaVitrine from "./pages/EmpresaVitrine";
 import AnuncioDetalhes from "./pages/AnuncioDetalhes";
+import Favoritos from "./pages/Favoritos";
 
 export default function App() {
   return (
@@ -48,8 +48,11 @@ export default function App() {
             path="*"
             element={<Navigate to="/anuncios" replace />}
           />
-          
+
           <Route path="/anuncios/:id" element={<AnuncioDetalhes />} />
+
+          <Route path="/favoritos" element={<Favoritos />} />
+          
         </Routes>
       </FavoritosProvider>
     </AuthProvider>

@@ -87,9 +87,21 @@ export default function Navbar({ busca, onBuscaChange }) {
         </div>
 
         <div className="flex shrink-0 items-center gap-4">
-          <IconButton title="Favoritos" contagem={contagem}>
-            <HeartIcon />
-          </IconButton>
+
+      <Link
+        to="/favoritos"
+        title="Meus favoritos"
+        aria-label={`Meus favoritos: ${contagem} anúncios`}
+        className="relative flex h-9 w-9 items-center justify-center rounded-lg text-charcoal transition hover:bg-cream"
+      >
+        <HeartIcon />
+              
+        {contagem > 0 && (
+          <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-sage px-1 text-[10px] font-bold text-white">
+            {contagem}
+          </span>
+        )}
+      </Link>
 
           <IconButton title="Carrinho (em breve)" desabilitado>
             <CartIcon />
