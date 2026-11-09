@@ -28,6 +28,14 @@ const Empresa = sequelize.define(
           type: DataTypes.STRING,
           allowNull: false,
         },
+        usuario_responsavel_id: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+          references: {
+            model: "usuarios",
+            key: "id",
+          },
+        },
         status: {
           type: DataTypes.STRING,
           defaultValue: "ativo",
