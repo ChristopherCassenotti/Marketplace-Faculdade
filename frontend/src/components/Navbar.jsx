@@ -42,10 +42,7 @@ export default function Navbar({ busca, onBuscaChange }) {
     <header className="sticky top-0 z-20 border-b border-line bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
         <Link to="/anuncios" className="flex shrink-0 items-center gap-2">
-          <Logo size="sm" showText={false} />
-          <div className="hidden leading-tight sm:block">
-            <p className="text-lg font-extrabold text-charcoal">NOMA</p>
-          </div>
+          <Logo size="sm" />
         </Link>
 
         <div ref={categoriasRef} className="relative hidden shrink-0 md:block">
