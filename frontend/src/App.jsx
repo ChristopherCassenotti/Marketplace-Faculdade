@@ -9,6 +9,7 @@ import Anuncios from "./pages/Anuncios";
 import CriarAnuncio from "./pages/CriarAnuncio";
 import ResumoCategorias from "./pages/ResumoCategorias";
 import EmpresaVitrine from "./pages/EmpresaVitrine";
+import CadastrarEmpresa from "./pages/CadastrarEmpresa";
 import AnuncioDetalhes from "./pages/AnuncioDetalhes";
 import Favoritos from "./pages/Favoritos";
 
@@ -26,6 +27,8 @@ export default function App() {
             <Route path="/anuncios" element={<Anuncios />} />
 
             <Route path="/anuncios/novo" element={<CriarAnuncio />} />
+
+            <Route path="/empresas/nova" element={<CadastrarEmpresa />} />
 
             <Route path="/empresas/:id" element={<EmpresaVitrine />} />
 

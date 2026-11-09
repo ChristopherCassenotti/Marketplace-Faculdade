@@ -26,7 +26,7 @@ const Empresa = sequelize.define(
         telefone: DataTypes.STRING,
         senha_hash: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         usuario_responsavel_id: {
           type: DataTypes.INTEGER,

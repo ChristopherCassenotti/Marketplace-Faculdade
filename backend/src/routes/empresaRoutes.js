@@ -87,8 +87,10 @@ router.get("/:id", buscarEmpresaPorId);
  * @swagger
  * /empresas:
  *   post:
- *     summary: Cria uma nova empresa
+ *     summary: Cria uma nova empresa (o usuário logado vira o responsável)
  *     tags: [Empresas]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -104,15 +106,15 @@ router.get("/:id", buscarEmpresaPorId);
  *                 type: string
  *               telefone:
  *                 type: string
- *               senha_hash:
- *                 type: string
  *     responses:
  *       201:
  *         description: Empresa criada com sucesso
  *       400:
  *         description: Dados inválidos
+ *       401:
+ *         description: Token não informado, inválido ou expirado
  */
-router.post("/", criarEmpresa);
+router.post("/", autenticarJWT, criarEmpresa);
 
 /**
  * @swagger

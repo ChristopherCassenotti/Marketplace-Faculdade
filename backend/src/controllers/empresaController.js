@@ -9,13 +9,12 @@ export const criarEmpresa = async (req, res) => {
       email,
       cnpj,
       telefone,
-      senha,
       status,
     } = req.body;
 
-    if (!nome || !email || !cnpj || !senha) {
+    if (!nome || !email || !cnpj) {
       return res.status(400).json({
-        mensagem: "Nome, email, CNPJ e senha são obrigatórios."
+        mensagem: "Nome, email e CNPJ são obrigatórios."
       });
     }
 
@@ -51,14 +50,12 @@ export const criarEmpresa = async (req, res) => {
       });
     }
 
-    const senha_hash = await bcrypt.hash(senha, 10);
-
     const empresa = await Empresa.create({
       nome,
       email,
       cnpj: cnpjNormalizado,
       telefone,
-      senha_hash,
+      usuario_responsavel_id: req.usuario.id,
       status: status || "ativo",
     });
 
@@ -71,6 +68,7 @@ export const criarEmpresa = async (req, res) => {
         cnpj: empresa.cnpj,
         telefone: empresa.telefone,
         status: empresa.status,
+        usuario_responsavel_id: empresa.usuario_responsavel_id,
         data_cadastro: empresa.data_cadastro
       }
     });
@@ -118,12 +116,6 @@ export const buscarEmpresaPorId = async (req, res) => {
             });
         }
 
-        if (empresa.usuario_responsavel_id !== req.usuario.id) {
-            return res.status(403).json({
-                mensagem: 'Você não tem permissão para alterar esta empresa.'
-            });
-        }
-
         return res.status(200).json(empresa);
     }
     catch(error){
@@ -151,6 +143,12 @@ export const atualizarEmpresa = async (req, res) => {
         if(!empresa){
             return res.status(404).json({
                 message: 'Empresa não encontrada.'
+            });
+        }
+
+        if (empresa.usuario_responsavel_id !== req.usuario.id) {
+            return res.status(403).json({
+                mensagem: 'Você não tem permissão para alterar esta empresa.'
             });
         }
 
@@ -235,7 +233,13 @@ export const excluirEmpresa = async (req, res) => {
                 message: 'Empresa não encontrada.'
             })
         }
-        
+
+        if (empresa.usuario_responsavel_id !== req.usuario.id) {
+            return res.status(403).json({
+                mensagem: 'Você não tem permissão para excluir esta empresa.'
+            });
+        }
+
         await empresa.destroy();
 
         return res.status(200).json({
