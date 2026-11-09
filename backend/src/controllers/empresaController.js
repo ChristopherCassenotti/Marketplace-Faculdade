@@ -118,6 +118,12 @@ export const buscarEmpresaPorId = async (req, res) => {
             });
         }
 
+        if (empresa.usuario_responsavel_id !== req.usuario.id) {
+            return res.status(403).json({
+                mensagem: 'Você não tem permissão para alterar esta empresa.'
+            });
+        }
+
         return res.status(200).json(empresa);
     }
     catch(error){

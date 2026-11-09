@@ -6,6 +6,7 @@ import {
   atualizarEmpresa,
   excluirEmpresa,
 } from "../controllers/empresaController.js";
+import { autenticarJWT } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -137,7 +138,7 @@ router.post("/", criarEmpresa);
  *       404:
  *         description: Empresa não encontrada
  */
-router.put("/:id", atualizarEmpresa);
+router.put("/:id", autenticarJWT, atualizarEmpresa);
 
 /**
  * @swagger
@@ -157,6 +158,6 @@ router.put("/:id", atualizarEmpresa);
  *       404:
  *         description: Empresa não encontrada
  */
-router.delete("/:id", excluirEmpresa);
+router.delete("/:id", autenticarJWT, excluirEmpresa);
 
 export default router;

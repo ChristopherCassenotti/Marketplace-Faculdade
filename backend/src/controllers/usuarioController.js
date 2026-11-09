@@ -47,6 +47,10 @@ export async function criarUsuario(req, res) {
 
 export async function atualizarUsuario(req, res) {
   try {
+    if (Number(req.params.id) !== req.usuario.id) {
+      return res.status(403).json({ erro: "Você só pode alterar a sua própria conta" });
+    }
+
     const usuario = await Usuario.findByPk(req.params.id);
     if (!usuario) {
       return res.status(404).json({ erro: "Usuário não encontrado" });
@@ -54,9 +58,12 @@ export async function atualizarUsuario(req, res) {
 
     const { senha, ...dados } = req.body;
     delete dados.senha_hash;
+    delete dados.id;
+    delete dados.status;
 
     if (senha) {
       dados.senha_hash = await bcrypt.hash(senha, 10);
+      
     }
 
     await usuario.update(dados);
@@ -72,6 +79,10 @@ export async function atualizarUsuario(req, res) {
 
 export async function deletarUsuario(req, res) {
   try {
+
+    if (Number(req.params.id) !== req.usuario.id) {
+      return res.status(403).json({ erro: "Você só pode alterar a sua própria conta" });
+    }
     const usuario = await Usuario.findByPk(req.params.id);
     if (!usuario) {
       return res.status(404).json({ erro: "Usuário não encontrado" });
