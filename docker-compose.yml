@@ -29,7 +29,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: sh -c "npx sequelize-cli db:migrate && npm run dev"
+    command: sh -c "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm run dev"
 
   frontend:
     build: ./frontend

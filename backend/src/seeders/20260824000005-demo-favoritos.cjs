@@ -3,90 +3,60 @@
 const diasAtras = (dias) =>
   new Date(Date.now() - dias * 24 * 60 * 60 * 1000);
 
+// [email do usuário, título do anúncio, dias atrás]
+const FAVORITOS = [
+  ["joao@teste.com", "Notebook Dell Inspiron", 10],
+  ["joao@teste.com", "Honda Civic 2020", 8],
+  ["joao@teste.com", "Apartamento Centro", 5],
+  ["maria@teste.com", "iPhone 15 128GB", 15],
+  ["maria@teste.com", "Honda Civic 2020", 6],
+  ["maria@teste.com", "PlayStation 5", 2],
+  ["carlos@teste.com", "iPhone 15 128GB", 12],
+  ["carlos@teste.com", "Apartamento Centro", 9],
+  ["carlos@teste.com", "PlayStation 5", 4],
+  ["ana@teste.com", "iPhone 15 128GB", 7],
+  ["ana@teste.com", "Honda Civic 2020", 6],
+  ["ana@teste.com", "Bicicleta Mountain Bike", 3],
+  ["pedro@teste.com", "Notebook Dell Inspiron", 4],
+  ["pedro@teste.com", "Apartamento Centro", 2],
+  ["juliana@teste.com", "Honda Civic 2020", 1],
+];
+
+// Idempotente: busca ids por email/título e ignora favoritos que já existem.
 module.exports = {
   async up(queryInterface) {
-    await queryInterface.bulkInsert("favoritos", [
-      {
-        usuario_id: 1,
-        anuncio_id: 2,
-        data: diasAtras(10),
-      },
-      {
-        usuario_id: 1,
-        anuncio_id: 3,
-        data: diasAtras(8),
-      },
-      {
-        usuario_id: 1,
-        anuncio_id: 5,
-        data: diasAtras(5),
-      },
+    const { QueryTypes } = queryInterface.sequelize;
 
-      {
-        usuario_id: 2,
-        anuncio_id: 1,
-        data: diasAtras(15),
-      },
-      {
-        usuario_id: 2,
-        anuncio_id: 3,
-        data: diasAtras(6),
-      },
-      {
-        usuario_id: 2,
-        anuncio_id: 8,
-        data: diasAtras(2),
-      },
+    const usuarios = await queryInterface.sequelize.query(
+      "SELECT id, email FROM usuarios", { type: QueryTypes.SELECT }
+    );
+    const anuncios = await queryInterface.sequelize.query(
+      "SELECT id, titulo FROM anuncios", { type: QueryTypes.SELECT }
+    );
+    const existentes = await queryInterface.sequelize.query(
+      "SELECT usuario_id, anuncio_id FROM favoritos", { type: QueryTypes.SELECT }
+    );
 
-      {
-        usuario_id: 3,
-        anuncio_id: 1,
-        data: diasAtras(12),
-      },
-      {
-        usuario_id: 3,
-        anuncio_id: 5,
-        data: diasAtras(9),
-      },
-      {
-        usuario_id: 3,
-        anuncio_id: 8,
-        data: diasAtras(4),
-      },
+    const idUsuario = Object.fromEntries(usuarios.map((u) => [u.email, u.id]));
+    const idAnuncio = Object.fromEntries(anuncios.map((a) => [a.titulo, a.id]));
+    const ja = new Set(existentes.map((f) => `${f.usuario_id}-${f.anuncio_id}`));
 
-      {
-        usuario_id: 4,
-        anuncio_id: 1,
-        data: diasAtras(7),
-      },
-      {
-        usuario_id: 4,
-        anuncio_id: 3,
-        data: diasAtras(6),
-      },
-      {
-        usuario_id: 4,
-        anuncio_id: 7,
-        data: diasAtras(3),
-      },
+    const novos = [];
+    for (const [email, titulo, dias] of FAVORITOS) {
+      const usuario_id = idUsuario[email];
+      const anuncio_id = idAnuncio[titulo];
+      if (!usuario_id || !anuncio_id) continue;
 
-      {
-        usuario_id: 5,
-        anuncio_id: 2,
-        data: diasAtras(4),
-      },
-      {
-        usuario_id: 5,
-        anuncio_id: 5,
-        data: diasAtras(2),
-      },
+      const chave = `${usuario_id}-${anuncio_id}`;
+      if (ja.has(chave)) continue;
+      ja.add(chave);
 
-      {
-        usuario_id: 6,
-        anuncio_id: 3,
-        data: diasAtras(1),
-      },
-    ]);
+      novos.push({ usuario_id, anuncio_id, data: diasAtras(dias) });
+    }
+
+    if (novos.length) {
+      await queryInterface.bulkInsert("favoritos", novos);
+    }
   },
 
   async down(queryInterface) {
