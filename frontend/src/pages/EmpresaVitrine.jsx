@@ -99,14 +99,20 @@ export default function EmpresaVitrine() {
                   </p>
 
                   <div className="mt-4 flex flex-wrap gap-3 text-sm">
-                    {empresa.telefone && (
-                      <a
-                        href={`tel:${empresa.telefone.replace(/\D/g, "")}`}
-                        className="rounded-lg bg-sage px-4 py-2 font-semibold text-white hover:opacity-90"
-                      >
-                        Entrar em contato
-                      </a>
-                    )}
+
+                {empresa.telefone && (
+                  <a
+                    href={`https://wa.me/${formatarWhatsApp(empresa.telefone)}?text=${encodeURIComponent(
+                      `Olá! Encontrei a ${empresa.nome} no NOMA e gostaria de saber mais sobre seus produtos.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg bg-sage px-4 py-2 font-semibold text-white transition hover:opacity-90"
+                  >
+                    Falar pelo WhatsApp ↗
+                  </a>
+                )}
+
 
                     {empresa.email && (
                       <a
@@ -154,4 +160,17 @@ export default function EmpresaVitrine() {
       </main>
     </div>
   );
+}
+
+
+function formatarWhatsApp(telefone) {
+  const numero = String(telefone || "").replace(/\D/g, "");
+
+  // Telefones brasileiros com DDD, sem código do país
+  if (numero.length === 10 || numero.length === 11) {
+    return `55${numero}`;
+  }
+
+  // Telefones que já possuem código internacional
+  return numero;
 }
